@@ -1,0 +1,35 @@
+{% extends 'root.html.twig' %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+	<section class="container">
+		<section>
+	  		<h1 class="mt-3 pb-2 pt-2">Welcome!</h1>
+	  		<form class="d-flex" action="/search/movie" method="GET">
+		        <input class="form-control me-2" autocomplete="off" type="search" 
+		        name="query" placeholder="Search" aria-label="Search">
+		        <button class="btn btn-outline-success" type="submit">Search</button>
+	      	</form>
+	   	</section>
+   	
+	   	<section class="py-3">	
+		   	<h1 class="fs-3">Trending</h1>
+			<p class="subtitle">A short list of movies that are trending at the moment</p>
+			<section class="card-container d-flex row flex-nowrap  pb-1">
+				{% for movie in movies %}
+				<div class="col" style="margin-right: -10px;">
+					<div class="card card-cast">
+						<img src={{ movie.getPoster_path }}
+						class="card-img-top" alt="...">
+						<div class="card-body card-movie">
+						<a href="/movie/{{ movie.getMovie_id }}">
+					    	<p style="font-size: 1em; font-weight: bold;" class="card-text">{{ movie.getTitle }}</p>
+					    </a>	
+					    <p class="card-text"> {{ movie.getRelease_date() }} </p>
+						</div>
+					</div>
+				</div>	
+				{% endfor %}	
+			</section>
+		</section>
+	</section>
+{% endblock %}

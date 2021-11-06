@@ -1,0 +1,161 @@
+body {
+	background-color: white;
+	display: flex;
+	flex-direction: column;
+	min-height: 100%;
+	height: auto;
+}
+
+a {
+	color: #000; 
+	text-decoration: none;
+}
+
+h2 {
+    font-size: 1.2em;
+    line-height: 1.2em;
+    margin-bottom: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+li {
+	margin-right: 5px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    white-space: nowrap;
+}
+
+ul2 {
+    list-style-type: none;
+    padding: 0;
+}
+
+ul2 li {
+    padding: 8px 16px;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+.resultsBody {
+	padding-left: 40px; 
+	padding-right: 40px; 
+	padding-top: 30px; 
+	padding-bottom: 30px;
+}
+
+.wrapper {
+	display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.line-clamp {
+	margin-top: 20px;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;  
+    overflow: hidden;
+    text-align: justify;
+    align-items: baseline;
+}
+
+.details {
+    width: 100%;
+    padding: 10px 15px;
+    box-sizing: border-box;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: center;
+    align-items: center;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    overflow: hidden;
+    font-size: 1em; 
+    font-weight: bold;
+}
+
+
+.card-shadow {
+	box-shadow: 0 2px 8px rgb(0 0 0 / 10%);
+	background-color: #fff;
+}
+
+.card {
+    border: 1px solid rgba(var(--lightGrey), 1);
+    border-radius: 12px; 
+    margin-bottom: 10; 
+    margin-top: 0;
+}
+
+.result-cards {
+	width: 94px;
+	height: 141px; 
+	border-radius: 12px;
+}
+
+.list-cards {
+	width: 186px;
+	height: 282px; 
+	border-radius: 12px;
+}
+
+.card-cast {
+	border: 0;
+	border-radius: 12px;
+	width: 138px;
+}
+
+.card-user-movie {
+	width: 206px;
+}
+
+.card-user-movie-title {
+	width: 206px;
+	height: 90px;
+	padding: 0 10px;
+	padding-top: 10px;
+	margin-right: -10px;
+}
+
+.card-movie {
+	width: 138px;
+	height: 120px;
+	padding: 0 10px;
+	padding-top: 10px;
+	margin-right: -10px;
+}
+
+.card-text {
+	margin: 0;
+}
+
+.card-block {
+	height: 250px;
+	background-color: #fff;
+	border: none;
+	background-position: center;
+	background-size: cover;
+	transition: all 0.2s ease-in-out !important;
+	border-radius: 24px;
+}
+
+.card-container {
+	overflow-x: scroll;
+}
+
+.content {
+	flex: 1;
+}
+
+.footer {
+	flex: none;
+}

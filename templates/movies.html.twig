@@ -1,0 +1,117 @@
+{% extends 'root.html.twig' %}
+{% block title %}Movies{% endblock %}
+{% block content %}
+
+{% if movie == false %}
+<section class="d-flex">
+	<form class="input-group" style="margin-block-end: 0em;" action="/search/movie" method="get">
+        <input id="bar" class="form-control me-2" autocomplete="off" type="search" 
+        name="query" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+  	</form>
+</section>
+<ul2 class="data" id="tips"></ul2>
+<section class="resultsBody">
+    <section class="container">
+    	<div>
+            <p>There are no movies that matched your query.</p>
+            <a href="/dashboard"><button class="btn btn-secondary" type="submit">Return to Dashboard?</button></a>
+    	</div>
+    </section>
+</section>
+{% else %}
+<section class="container-fluid bg-light mt-3 py-3">
+    <div class="container">
+        <div class="row">
+        	<div class="col-3">
+        		<img src={{ movie.getPoster_path }}
+        		class="img-fluid" style="width: 300px; height: 450;" alt="...">
+        	</div>
+        	<div class="col-9 bg-light">
+        		<p class="fs-1">{{ movie.getTitle }} <a style="opacity: 0.9;">({{ movie.getRelease_date }})</a></p>
+        		<p>
+            		{% for genre in movie.getGenres %}
+            			<span class="badge bg-secondary">{{ genre.name }}</span>
+            		{% endfor %}
+        		</p>
+        		<p class="fs-3">Overview</p>
+        		<p>{{ movie.getOverview }}</p>
+        		<div>
+        		{% if app.user %}
+        		<button 
+            		type="button" 
+            		class="btn btn-primary"
+            		data-bs-toggle="modal"
+      				data-bs-target="#listModal" 
+  				>
+  					Add to List
+  				</button>
+  				{% endif %}
+        	</div>
+        	</div>
+        </div>
+    </div>
+</section>
+{% if app.user %}
+<div class="modal fade" id="listModal" tabindex="-1">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Modal title</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="/lists" method="post">
+            {% for list in app.user.getList() %}
+                <div class="mb-3">
+                    <p><a href="/addMovie/{{ list.getId() }}/{{ movie.getMovie_id() }}">{{ list.getName() }}</a></p>
+                </div>
+            {% endfor %}
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+<section class="container-fluid py-3">
+    <section class="container">
+    	<div class="row">
+        	<div class="col-9">
+               	<p class="fs-3">Top Billed Cast</p>
+            	<div class="card-container d-flex row flex-nowrap pb-1">
+            		{% for actor in cast %}
+            		{% if actor.order <= 8 %}
+            		<div class="col-2">
+            			<div class="card card-cast">
+            				<img src={{ actor.getProfilePath }} class="card-img-top" alt="...">
+            				<div class="card-body card-movie">
+            			    	<p style="font-size: 1em; font-weight: bold;" class="card-text">{{ actor.getName }}</p>
+            			    	<p style="font-size: 0.9em; padding-bottom: 10px" class="card-text">{{ actor.getCharacter }}</p>
+            				</div>
+            			</div>
+            		</div>
+            		{% endif %}
+        			{% endfor %}
+            	</div>
+        	</div>
+        	<div class="col-3">
+        		<ul><p class="fs-3">Details</p></ul>
+    			<ul class="d-flex flex-row flex-wrap" style="list-style-type: none;">
+    			{% for keyword in movie.getKeywords %}
+    				<li>
+    					<a href="/keyword/{{ keyword.id }}/movies"> 
+    					<span class="badge bg-secondary">{{ keyword.name }}</span> 
+    					</a>
+    				</li>
+    			{% endfor %}
+    			</ul>
+        	</div>
+    	</div>
+    </section>
+</section>
+{% endif %}
+<script src="{{ asset('assets/js/search.js') }}" type="module"></script>
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'root.html.twig' %}
+{% block title %}Results{% endblock %}
+{% block content %}
+<section class="d-flex">
+	<form class="input-group" style="margin-block-end: 0em;" action="/search/movie" method="get">
+        <input id="bar" class="form-control me-2" autocomplete="off" type="search" 
+        name="query" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+  	</form>
+</section>
+<ul2 class="data" id="tips"></ul2>
+<section class="resultsBody">
+    <section class="container">
+        	<div>
+            {% if movies == false %}
+                <p>There are no movies that matched your query.</p>
+            {% else %}
+            
+           	{% for movie in movies %}
+        	<div class="card card-shadow d-flex flex-row flex-nowrap">
+    			<div>
+    				<img src={{ movie.getPoster_path }} 
+    				class="card-img-top result-cards" alt="...">
+    			</div>
+        		<div class="details">
+            		<div class="wrapper">	
+            			<div class="title">
+            				<div style="width: 100%; line-height: 100%; display: inline-block;">
+            					<a href="/movie/{{ movie.getMovie_id }}">
+            				        <h2>{{ movie.getTitle }}</h2>
+            				    </a>
+            				</div>
+                			<span style="white-space: nowrap; color: #999;"> {{ movie.getRelease_date }} </span>
+            			</div>
+        			</div>
+        			<div class="line-clamp">
+        				<p>{{ movie.getOverview }}</p>
+        			</div>
+        		</div>		
+        	</div>
+        	{% endfor %}
+    		<nav aria-label="Page navigation">
+                <ul class="pagination" style="justify-content: center; align-content: center;">
+                    {% if data.page > 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page - 1 }}">Previous</a></li>
+                    {% endif %}
+                    
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page=1">1</a></li>
+                    
+                    {% if data.page >= 6 %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page=2">2</a></li>
+                    {% endif %}
+                    
+                    {% if data.page >= 7 %}
+                    	<li class="page-item"><a class="page-link" >...</a></li>
+                    {% endif %}
+                    
+                    {% if data.page > 2 %}
+                        {% if data.page > 4 %}
+                        <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page - 3 }}">{{ data.page - 3 }}</a></li>
+                        {% endif %}
+                        {% if data.page > 3 %}
+                        <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page - 2 }}">{{ data.page - 2 }}</a></li>
+                        {% endif %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page - 1 }}">{{ data.page - 1 }}</a></li>
+                    {% endif %}
+                    
+                    {% if data.total_pages > 2 and data.total_pages > data.page + 1 %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page + 1 }}">{{ data.page + 1 }}</a></li>
+                        {% if data.page < data.total_pages - 2 %}
+                        <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page + 2 }}">{{ data.page + 2 }}</a></li>
+                        {% endif %}
+                        {% if data.page < data.total_pages - 3 %}
+                        <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page + 3 }}">{{ data.page + 3 }}</a></li>
+                        {% endif %}
+                        {% if data.page < data.total_pages - 4 %}
+                        <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page + 4 }}">{{ data.page + 4 }}</a></li>
+                        {% endif %}
+                    {% endif %}
+                    
+                    {% if data.page <= data.total_pages - 7 %}
+                    <li class="page-item"><a class="page-link">...</a></li>
+                    {% endif %}
+                    
+                    {% if data.page <= data.total_pages - 6 %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.total_pages - 1 }}">{{ data.total_pages - 1 }}</a></li>
+                    {% endif %}
+                    {% if data.page != data.total_pages %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.total_pages }}">{{ data.total_pages }}</a></li>
+                    {% endif %}
+                    {% if data.total_pages != data.page %}
+                    <li class="page-item"><a class="page-link" href="{{ query }}&page={{ data.page + 1 }}">Next</a></li>
+                    {% endif %}
+                </ul>
+            </nav>
+{% endif %}
+        	</div>
+    </section>
+</section>
+
+<script src="{{ asset('assets/js/search.js') }}" type="module"></script>
+{% endblock %}

@@ -1,0 +1,121 @@
+{% extends 'root.html.twig' %}
+{% block title %}Lists{% endblock %}
+{% block content %}
+
+<section class="container-fluid"">
+    <div class="container justify-content-start flex-wrap resultsBody">
+        <div class="container d-flex flex-row justify-content-between align-items-start">
+        	<div style="padding-bottom: 30px;">
+        		<h2>My Lists!</h2>
+        	</div>
+        	<div>
+        		<button 
+        		type="button" 
+        		class="btn btn-primary"
+        		data-bs-toggle="modal"
+  				data-bs-target="#listModal" 
+  				>
+  					Create List
+  				</button>
+  				<button
+  				type="button" 
+        		class="btn btn-secondary"
+        		data-bs-toggle="modal"
+  				data-bs-target="#EditListModal"
+        		>
+  					Edit
+  				</button>
+        	</div>
+        </div>
+        <div class="d-flex flex-row flex-wrap">
+		{% for list in lists %}
+            <div class="card" style="margin: 10px 10px; flex: 0 0 30%;">
+                <img class="card-img-top bg-light" src="https://www.themoviedb.org/assets/2/v4/glyphicons/basic/glyphicons-basic-38-picture-grey-c2ebdbb057f2a7614185931650f8cee23fa137b93812ccb132b9df511df1cfac.svg" alt="Card image cap">
+            	<div class="card-body">
+                    <h5 class="card-title"><a href="/list/{{ list.id }}"> {{ list.name }} </a></h5>
+                   <!-- <p class="card-text">This is a wider card with supporting text below as a natural lead-in 
+                    to additional content. This content is a little bit longer.</p> -->
+            	</div>
+            </div>
+       	{% endfor %}
+       	</div>
+    </div>
+    
+    <div class="modal fade" id="listModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Modal title</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form action="/lists" method="post">
+                <div class="mb-3">
+                    <label for="listName" class="form-label">List Name</label>
+                    <input type="text" class="form-control" id="listName" name="listName" aria-describedby="nameHelp">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="EditListModal" tabindex="-1">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Remove List</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+        	{% for list in lists %}
+            <div class="container d-flex flex-row justify-content-between align-items-start">
+        	<div style="padding-bottom: 30px;">
+        		<h2>{{ list.getName() }}</h2>
+        	</div>
+        	<div id="hiddenDiv" style="display:none" >
+            	<form class="row g-2" action="/lists/update/{{ list.getId() }}" method="GET">
+                	<div class="col-auto">
+                        <input class="form-control" name="updateList">
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary">Save</button>
+                    </div>
+            	</form>
+        	</div>
+        	<div>
+        		<button id="editButton" type="button" class="btn btn-primary">
+  					<i class="bi bi-pencil-square"></i>
+  				</button>
+            	<a href="/removeList/{{ list.getId() }}">
+      				<button	type="button" class="btn btn-danger">
+    					<i class="bi bi-trash"></i>
+      				</button>
+    			</a>
+        	</div>
+        </div>
+        	{% endfor %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+<script>
+	var h = document.getElementById("hiddenDiv");
+	var button = document.getElementById("editButton");
+	button.onclick = function() {
+		if (h.style.display === "none") {
+			h.style.display = "block";
+		} else { 
+			h.style.display = "none";
+		}
+	}
+</script>
+{% endblock %}

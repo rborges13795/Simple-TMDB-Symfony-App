@@ -1,0 +1,72 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+
+search:
+  path: /search/movie
+  methods: GET
+  controller: App\Controller\MovieController::getMovies
+  
+dashboard:
+  path: /dashboard
+  methods: GET
+  controller: App\Controller\MovieController::dashboard
+
+movie:
+  path: /movie/{id}
+  methods: GET
+  controller: App\Controller\MovieController::show
+  
+keywords:
+  path: /keyword/{id}/movies
+  methods: GET
+  controller: App\Controller\KeywordController::getMovies
+  
+add_movie:
+  path: /addMovie/{id}/{movieId}
+  methods: GET
+  controller: App\Controller\ListController::addMovie
+  
+remove_movie:
+  path: /removeMovie/{id}/{movieId}
+  methods: GET
+  controller: App\Controller\ListController::removeMovie
+  
+list:
+  path: /lists
+  methods: GET
+  controller: App\Controller\ListController::index
+  
+create_List:
+  path: /lists
+  methods: POST
+  controller: App\Controller\ListController::create
+  
+user_list:
+  path: /list/{id}
+  methods: GET
+  controller: App\Controller\ListController::getListMovies 
+  
+remove_list:
+  path: /removeList/{id}
+  methods: GET
+  controller: App\Controller\ListController::removeList
+  
+update_list:
+  path: /lists/update/{id}
+  methods: GET
+  controller: App\Controller\ListController::updateList
+  
+remove_user:
+  path: /removeUser
+  methods: GET
+  controller: App\Controller\UserController::removeUser
+
+app_register:
+  path: /register
+  controller: App\Controller\RegistrationController::register
+  
+app_login:
+  path: /login
+  controller: App\Controller\SecurityController::login
+  

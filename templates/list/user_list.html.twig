@@ -1,0 +1,103 @@
+{% extends 'root.html.twig' %}
+{% block title %}Lists{% endblock %}
+{% block content %}
+
+<section class="container-fluid"">
+    <div class="container justify-content-start flex-wrap resultsBody">
+        <div class="container d-flex flex-row justify-content-between align-items-start">
+        	<div style="padding-bottom: 30px;">
+        		<h2>A list by {{ app.user.getUserIdentifier() }}</h2>
+        	</div>
+        	<div>
+        		<button 
+        		type="button" 
+        		class="btn btn-primary"
+        		data-bs-toggle="modal"
+  				data-bs-target="#AddListModal" 
+  				>
+  					Add Movies
+  				</button>
+  				<button
+  				type="button" 
+        		class="btn btn-secondary"
+        		data-bs-toggle="modal"
+  				data-bs-target="#EditListModal"
+        		>
+  					Edit
+  				</button>
+        	</div>
+        </div>
+        <div class="d-flex flex-row flex-wrap" >
+        {% for movie in movies %}
+        <div class="col" style="margin: 10px 10px; flex: 0 0 18%;">
+            <div class="card card-user-movie" >
+                <a href="/movie/{{ movie.getMovie_id }}">
+                	<img class="card-img-top bg-light" src={{ movie.getPoster_path }} >
+            	</a>
+            	<div class="card-body card-user-movie-title">
+					<a href="/movie/{{ movie.getMovie_id }}">
+    					<p style="font-size: 1em; font-weight: bold;" class="card-text line-clamp">
+    					    {{ movie.getTitle() }}
+    					</p>
+					</a>
+                    <p class="card-text"> {{ movie.getRelease_date() }} </p>
+            	</div>
+            </div>
+         </div>   
+       	{% endfor %}
+       	</div>
+    </div>
+    
+    <div class="modal fade" id="AddListModal" tabindex="-1">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Search Movies</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form class="d-flex" action="/search/movie" method="GET">
+		        <input class="form-control me-2" autocomplete="off" type="search" 
+		        name="query" placeholder="Search" aria-label="Search">
+		        <button class="btn btn-outline-success" type="submit">Search</button>
+	      	</form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="EditListModal" tabindex="-1">
+      <div class="modal-dialog modal-md">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Delete Movies</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+        	{% for movie in movies %}
+            <div class="container d-flex flex-row justify-content-between align-items-start">
+        	<div style="padding-bottom: 30px;">
+        		<h2>{{ movie.getTitle() }}</h2>
+        	</div>
+        	<div>
+            	<a href="/removeMovie/{{ list.getId() }}/{{ movie.getMovie_id() }}">
+      				<button	type="button" class="btn btn-danger">
+    					<i class="bi bi-trash"></i>
+      				</button>
+    			</a>
+        	</div>
+        </div>
+        	{% endfor %}
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+{% endblock %}
