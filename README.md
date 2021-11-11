@@ -6,7 +6,10 @@ You can clone the repository to a path of your choice or donwload the zip file a
 https://github.com/rborges13795/Simple-TMDB-Symfony-App.git
 ```
 ## Configuration
-First thing that needs to be done is to change the `.env.example` file to just `.env` and add 'api_key' and 'api_token' to it. After you get said key and token from the TMDB website, assign them respectively. After that, go to `/public/assets/js/search.js` and replace `APIKeyHere` with your api_key. Then, at the end of the file, replace the mock database data with your own. Finally, run composer install with
+- First thing that needs to be done is to change the `.env.example` file to just `.env` and add 'api_key' and 'api_token' to it. After you get said key and token from the TMDB website, assign them respectively. 
+- Go to `/public/assets/js/search.js` and replace `APIKeyHere` with your api_key. Then, at the end of the file, replace the mock database data with your own. 
+- Add a random string to `APP_SECRET`.
+- Finally, run composer install with
 ```
 composer install 
 ```
