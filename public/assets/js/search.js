@@ -3,7 +3,7 @@ const tips = document.getElementById("tips");
 bar.addEventListener('input', ({target}) => {
     const input = target.value;
     if (input.length) {
-        fetch(`https:api.themoviedb.org/3/search/movie?api_key=${putAPIKeyHere}&query=${input}`)
+        fetch(`https:api.themoviedb.org/3/search/movie?api_key=${APIKeyHere}&query=${input}`)
         .then(
             response => {
                 return response.json();
