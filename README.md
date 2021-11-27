@@ -32,7 +32,7 @@ If you want to populate the database with some users, run the command:
 php bin/console doctrine:fixtures:load
 ```
 ## The Data
-This app uses the 'The Movie Database' ([TMDb](https://www.themoviedb.org)) as the source of the data and images used.
+This app uses the 'The Movie Database' ([TMDb](https://www.themoviedb.org)) api as the source of the data and images used.
 ## Requirements
 - PHP >= 7.3
 - OpenSSL PHP Extension
