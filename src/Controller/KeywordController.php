@@ -26,10 +26,6 @@ class KeywordController extends AbstractController
         $query = "?query=";
         try {
             $response = $this->repository->getMovieSearch($id, $params);
-            
-            if (! array_key_exists('results', $response)) {
-                return $this->render('error1.html.twig');
-            }
     
             foreach ($response['results'] as $movie) {
                 $movies[] = $this->factory->create($movie);

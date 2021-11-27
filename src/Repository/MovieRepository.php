@@ -12,7 +12,7 @@ class MovieRepository extends AbstractRepository
     
     public function getMovieTrending(): array
     {
-        $url =$this->getUri() . 'movie/popular' . '?' . $this->apiKey();
+        $url = $this->getUri() . 'movie/popular' . '?' . $this->apiKey();
         
         return $this->getResponse($url);
     }

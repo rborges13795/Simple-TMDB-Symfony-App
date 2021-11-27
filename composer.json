@@ -14,6 +14,7 @@
         "doctrine/orm": "^2.9",
         "firebase/php-jwt": "^5.4",
         "guzzlehttp/guzzle": "^7.3",
+        "html2text/html2text": "^4.3",
         "phpdocumentor/reflection-docblock": "^5.2",
         "phpunit/phpunit": "^9.5",
         "sensio/framework-extra-bundle": "^6.1",

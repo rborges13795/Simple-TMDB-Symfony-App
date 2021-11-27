@@ -40,10 +40,6 @@ class MovieController extends AbstractController
     {
         $response = $this->repository->getMovieTrending();
 
-        if (! array_key_exists('results', $response)) {
-            return $this->render('error1.html.twig');
-        }
-
         foreach ($response['results'] as $movie) {
             $movies[] = $this->factory->create($movie);
         }
@@ -69,10 +65,6 @@ class MovieController extends AbstractController
             $query = "?query={$params['query']}";
             $response = $this->repository->getMovieSearch($params);
     
-            if (! array_key_exists('results', $response)) {
-                return $this->render('error1.html.twig');
-            }
-    
             foreach ($response['results'] as $movie) {
                 $movies[] = $this->factory->create($movie);
             }
@@ -92,7 +84,7 @@ class MovieController extends AbstractController
                 'movies' => $movies,
                 'query' => $query
             ]);
-        } catch (RequestException $e) {
+        } catch (\Exception $e) {
             $data = $movies = $query = null;
             return $this->render('results.html.twig', [
                 'data' => $data,
@@ -118,15 +110,11 @@ class MovieController extends AbstractController
             }
             $movie = $this->factory->create($response);
     
-            if (array_key_exists('success', $response)) {
-                return $this->render('error1.html.twig');
-            }
-    
             return $this->render('movies.html.twig', [
                 'movie' => $movie,
                 'cast' => $cast
             ]);
-        } catch (RequestException $e) {
+        } catch (\Exception $e) {
             $movie = $cast = null;
             return $this->render('movies.html.twig', [
                 'movie' => $movie,

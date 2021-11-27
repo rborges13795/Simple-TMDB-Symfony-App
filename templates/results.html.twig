@@ -13,7 +13,12 @@
     <section class="container">
         	<div>
             {% if movies == false %}
-                <p>There are no movies that matched your query.</p>
+                <section class="container">
+                	<div>
+                        <p>There are no movies that matched your query.</p>
+                        <a href="/dashboard"><button class="btn btn-secondary" type="submit">Return to Dashboard?</button></a>
+                	</div>
+    			</section>
             {% else %}
             
            	{% for movie in movies %}
